@@ -14,7 +14,6 @@ import { Timestamp } from 'firebase-admin/firestore';
 
 import { CalculatePricing } from './pricing.js';
 import { VehicleModel } from './vehicles.js';
-import FundraisinghandleIncomingMessage  from "./services/FundraisingWhatsAppService.js";
 
 //import { extractImageData } from './imageExtraction.js';
 const bucketName = "assigurw.appspot.com";
@@ -7155,7 +7154,7 @@ const initializeDefaultCases = () => {
     await sendClassSelectionMessage(phone, phoneNumberId);
   });
 
-  textMessageCases.set('hi', async (userContext, phone, phoneNumberId) => {
+  textMessageCases.set('mwiriwe!', async (userContext, phone, phoneNumberId) => {
       await FundraisinghandleIncomingMessage(phone, phoneNumberId);
     });
 
@@ -7348,7 +7347,28 @@ async function sendClassSelectionMessage(phone, phoneNumberId) {
 
   await sendWhatsAppMessage(phone, payload, phoneNumberId);
 }
+// ---1. Fundraising handle incoming message ---
+async function FundraisinghandleIncomingMessage(phone, phoneNumberId) {
+  let userContext = userContexts.get(phone) || {};
+  userContext.stage = "WELCOME_FUNDRAISING";
+  userContexts.set(phone, userContext);
 
+  const payload = {
+    type: "interactive",
+    interactive: {
+      type: "text",
+      text:{
+        header: "👋Murakaza neza, Regis!",
+        body: "Urifuza gukora iki uyu munsi?",
+        footer: {
+          button: "📥 Reba Amasanduku yanjye",
+          button: "🌍 Reba Amasanduku rusange"
+        }
+      }
+    }
+  };
+  await sendWhatsAppMessage(phone, payload, phoneNumberId);
+}
 
 
 // --- 2. Send Category Selection Message ---
