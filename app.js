@@ -7412,9 +7412,9 @@ async function viewofisanduku(phone, phoneNumberId) {
           {
             title: "Amasanduku",
             rows: [
-              { id: "kigali_fc", title: "1️⃣ Inkunga ya Kigali FC (⚽ Siporo)" },
-              { id: "remera_business", title: "2️⃣ Ikimina cy'Abacuruzi ba Remera (💰 Wizigama buri kwezi)" },
-              { id: "umuganda", title: "3️⃣ Umuganda w'isuku rusange (🌿 Ubukangurambaga rimwe gusa)" }
+              { id: "kigali_fc", title: "1️⃣ Inkunga ya Kigali FC ⚽" },
+              { id: "remera_business", title: "2️⃣ Ikimina cy'Abacuruzi" },
+              { id: "umuganda", title: "3️⃣ Umusanzu w'isuku" }
             ]
           }
         ]
@@ -7435,7 +7435,7 @@ async function viewofamasandukurusange(phone, phoneNumberId) {
       type: "list",
       header: { 
         type: "text", 
-        text: "🧺 Amasanduku rusange y'inkunga n'ubwizigame" 
+        text: "🧺Konti rusange y'inkung" 
       },
       body: {
         text: "Hitamo agasanduku: "
@@ -7446,9 +7446,9 @@ async function viewofamasandukurusange(phone, phoneNumberId) {
           {
             title: "Amasanduku",
             rows: [
-              { id: "kigali_fc", title: "1️⃣ Ikigega cy'Abafana ba APR FC - buri kwezi"},
-              { id: "remera_business", title: "2️⃣ Ikigega cy'ubuzima bw'Abaturage - rimwe gusa" },
-              { id: "umuganda", title: "3️⃣ Inkunga y'Uburezi bw'Urubyiruko - buri cyumweru" }
+              { id: "kigali_fc", title: "1️⃣ Ikigega cy' APR FC"},
+              { id: "remera_business", title: "2️⃣ Ikigega cy'ubwivuzi" },
+              { id: "umuganda", title: "3️⃣ Inkunga y'Uburezi" }
             ]
           }
         ]
