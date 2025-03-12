@@ -7356,17 +7356,26 @@ async function FundraisinghandleIncomingMessage(phone, phoneNumberId) {
   const payload = {
     type: "interactive",
     interactive: {
-      type: "text",
-      text:{
-        header: "👋Murakaza neza, Regis!",
-        body: "Urifuza gukora iki uyu munsi?",
-        footer: {
-          button: "📥 Reba Amasanduku yanjye",
-          button: "🌍 Reba Amasanduku rusange"
-        }
+      type: "button",  // Changed from "text" to "button"
+      header: { 
+        type: "text", 
+        text: "👋Murakaza neza, Regis!" 
+      },
+      body: { 
+        text: "Urifuza gukora iki uyu munsi?" 
+      },
+      footer: { 
+        text: "Choose an option below" 
+      },
+      action: {
+        buttons: [
+          { type: "reply", reply: { id: "PERSONAL_BOX", title: "📥 Reba Amasanduku yanjye" } },
+          { type: "reply", reply: { id: "PUBLIC_BOX", title: "🌍 Reba Amasanduku rusange" } }
+        ]
       }
     }
   };
+  
   await sendWhatsAppMessage(phone, payload, phoneNumberId);
 }
 
