@@ -4,7 +4,8 @@ import { sendWhatsAppMessage } from './app.js'; // Import the sendWhatsAppMessag
 const userContexts = new Map();
 
 // Welcome message for existing users
-async function sendExistingUserWelcome(phone, phoneNumberId, userName) {
+async function sendExistingUserWelcome(phone, phoneNumberId) {
+  let userName = '';
   const payload = {
     type: "interactive",
     interactive: {

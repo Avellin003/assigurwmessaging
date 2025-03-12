@@ -15,6 +15,7 @@ import { Timestamp } from 'firebase-admin/firestore';
 
 import { CalculatePricing } from './pricing.js';
 import { VehicleModel } from './vehicle.js';
+import { handleFundraisingFlow } from "./fundraisingHandler.js";
 
 //import { extractImageData } from './imageExtraction.js';
 const bucketName = "assigurw.appspot.com";
@@ -7155,6 +7156,9 @@ const initializeDefaultCases = () => {
     await sendClassSelectionMessage(phone, phoneNumberId);
   });
 
+  textMessageCases.set('hi', async (userContext, phone, phoneNumberId) => {
+    await sendExistingUserWelcome(phone, phoneNumberId);
+  });
   
   // Add your existing static cases
   textMessageCases.set('menu1', {
