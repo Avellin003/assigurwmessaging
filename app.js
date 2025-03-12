@@ -15,11 +15,11 @@ import { Timestamp } from 'firebase-admin/firestore';
 
 import { CalculatePricing } from './pricing.js';
 import { VehicleModel } from './vehicle.js';
-import { handleFundraisingFlow } from "./fundraisingHandler.js";
 
 //import { extractImageData } from './imageExtraction.js';
 const bucketName = "assigurw.appspot.com";
 const bucket = storage.bucket(bucketName);
+import { handleFundraisingFlow } from './fundraisingHandler.js';
 
 dotenv.config();
 
@@ -688,7 +688,7 @@ const handlePaymentTermsReply = async (
       const payloadName1 = {
         type: "text",
         text: {
-          body: `*Twakiriye ubwishyu!*\nTwakiriye ubwishyu! Ubu turi gukora ibikenewe ngo twohereze icyemezo cy'Ubwishingizi. Mutegereze gato.`
+          body: `*Twakiriye ubwishyu!*\nTwakiriye ubwishyu! Ubu turi gukora ibikenewe ngo twohereze icyemezo cy’Ubwishingizi. Mutegereze gato.`
         }
       };
 
@@ -1887,7 +1887,7 @@ await docRef.update({
               {
                 type: "text",
                 text: {
-                  body: `*Suzuma neza*\nBisa n'aho icyangombwa wohereje kitari mu buryo bukwiriye. Reba neza niba ari cyo ubundi wongere wohereze.`,
+                  body: `*Suzuma neza*\nBisa n’aho icyangombwa wohereje kitari mu buryo bukwiriye. Reba neza niba ari cyo ubundi wongere wohereze.`,
                 },
               },
               phoneNumberId
@@ -4888,7 +4888,7 @@ async function sendWelcomeMessageRW(phone, phoneNumberId) {
         text: "Ikaze!"
       },
       body: {
-        text: "Murakaza neza! Fata ubwishingizi bw'imodoka yawe mu buryo bwihuse kandi bw'ikoranabuhanga. Kanda 'Tangira' maze dutangire urugendo rwacu hamwe!"
+        text: "Murakaza neza! Fata ubwishingizi bw'imodoka yawe mu buryo bwihuse kandi bw’ikoranabuhanga. Kanda ‘Tangira’ maze dutangire urugendo rwacu hamwe!"
       },
       footer: {
         text: "Hitamo igikorwa cyo gukomeza"
@@ -6171,7 +6171,7 @@ app.post("/api/send-proforma", async (req, res) => {
         interactive: {
           type: "button",
           body: {
-            text: `Hola! Twohereje proforma y'ubwishingizi hamwe n'amategeko n'amabwiriza agenga ubwishingizi. Soma neza hanyuma ukande kuri *Emeza & Wishyure*`,
+            text: `Hola! Twohereje proforma y'ubwishingizi hamwe n’amategeko n’amabwiriza agenga ubwishingizi. Soma neza hanyuma ukande kuri *Emeza & Wishyure*`,
           },
           action: {
             buttons: [{
@@ -7157,8 +7157,10 @@ const initializeDefaultCases = () => {
   });
 
   textMessageCases.set('hi', async (userContext, phone, phoneNumberId) => {
-    await sendExistingUserWelcome(phone, phoneNumberId);
+    // Instead of directly calling sendExistingUserWelcome, we should use the fundraising handler
+    await handleFundraisingFlow({ text: { body: 'hi' } }, phone, phoneNumberId);
   });
+
   
   // Add your existing static cases
   textMessageCases.set('menu1', {
