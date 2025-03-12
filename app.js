@@ -19,7 +19,6 @@ import { VehicleModel } from './vehicle.js';
 //import { extractImageData } from './imageExtraction.js';
 const bucketName = "assigurw.appspot.com";
 const bucket = storage.bucket(bucketName);
-import { handleFundraisingFlow } from './fundraisingHandler.js';
 
 dotenv.config();
 
@@ -7154,11 +7153,6 @@ const initializeDefaultCases = () => {
   // New case: send default catalog (using the keyword "catalog")
   textMessageCases.set('catalog', async (userContext, phone, phoneNumberId) => {
     await sendClassSelectionMessage(phone, phoneNumberId);
-  });
-
-  textMessageCases.set('hi', async (userContext, phone, phoneNumberId) => {
-    // Instead of directly calling sendExistingUserWelcome, we should use the fundraising handler
-    await handleFundraisingFlow({ text: { body: 'hi' } }, phone, phoneNumberId);
   });
 
   
