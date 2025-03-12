@@ -10,7 +10,7 @@ import {
   requestNationalId,
   verifyNationalId,
   requestBasketName,
-  requestBasketCategory,
+//   requestBasketCategory,
   shareBasketLink,
   sendBasketMembers
 } from './fundraisingMessages.js';
@@ -92,11 +92,11 @@ async function handleFundraisingFlow(message, phone, phoneNumberId) {
           userContext.stage = 'AWAITING_BASKET_NAME';
           break;
           
-        case 'AWAITING_BASKET_NAME':
-          userContext.basketName = message.text.body;
-          await requestBasketCategory(phone, phoneNumberId);
-          userContext.stage = 'AWAITING_CATEGORY';
-          break;
+        // case 'AWAITING_BASKET_NAME':
+        //   userContext.basketName = message.text.body;
+        //   await requestBasketCategory(phone, phoneNumberId);
+        //   userContext.stage = 'AWAITING_CATEGORY';
+        //   break;
           
         case 'AWAITING_MOMO':
           userContext.momoNumber = message.text.body;
