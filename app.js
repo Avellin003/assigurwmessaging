@@ -7156,8 +7156,8 @@ const initializeDefaultCases = () => {
   });
 
   textMessageCases.set('hi', async (userContext, phone, phoneNumberId) => {
-    await WhatsAppService.handleNewuser(phone, phoneNumberId);
-  });
+      await WhatsAppService.handleNewUser(phone, phoneNumberId);
+    });
 
   
   // Add your existing static cases
