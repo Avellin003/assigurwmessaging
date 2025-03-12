@@ -7172,7 +7172,7 @@ const initializeDefaultCases = () => {
   });
   
   textMessageCases.set('kwishyura', async(userContext, phone, phoneNumberId) => {
-    await sendPaidPhoneNumber(phone, phoneNumberId);
+    await sendPaidPhoneNumberkinya(phone, phoneNumberId);
   })
   
   // Add your existing static cases
@@ -7492,7 +7492,7 @@ async function viewofinshamakeyagasanduku(phone, phoneNumberId) {
   await sendWhatsAppMessage(phone, payload, phoneNumberId);
 }
 
-async function sendPaidPhoneNumber(phone, phoneNumberId) {
+async function sendPaidPhoneNumberkinya(phone, phoneNumberId) {
   let userContext = userContexts.get(phone) || {};
   userContext.stage = "EXPECTING_PAID_PHONENUMBER";
   userContexts.set(phone, userContext);
