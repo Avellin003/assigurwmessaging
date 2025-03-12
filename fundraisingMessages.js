@@ -1,4 +1,35 @@
-import { sendWhatsAppMessage } from './app.js'; // Import the sendWhatsAppMessage function
+async function sendWhatsAppMessage(phone, messagePayload, phoneNumberId) {
+    try {
+      const url = `https://graph.facebook.com/${VERSION}/${phoneNumberId}/messages`;
+  
+      const response = await axios({
+        method: "POST",
+        url: url,
+        headers: {
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        data: {
+          messaging_product: "whatsapp",
+          recipient_type: "individual",
+          to: formatPhoneNumber(phone),
+          ...messagePayload,
+        },
+      });
+  
+      console.log(
+        `Message sent successfully from ${phoneNumberId}:`,
+        response.data
+      );
+      return response.data;
+    } catch (error) {
+      console.error(
+        `WhatsApp message sending error from ${phoneNumberId}:`,
+        error.response?.data || error.message
+      );
+      throw error;
+    }
+  }// Import the sendWhatsAppMessage function
 
 // User context management (you can move this to a separate file later)
 const userContexts = new Map();
