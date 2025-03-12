@@ -45,7 +45,7 @@ async function FundraisinghandleIncomingMessage(phone, phoneNumberId) {
       type: "list",
       header: {
         type: "text",
-        text: "Welcome to Ikanisa\nInsurance Services!",
+        text: "Eshyoon!!!!!!!!",
       },
       body: {
         text: "What would you like to do today?",
@@ -78,3 +78,5 @@ async function FundraisinghandleIncomingMessage(phone, phoneNumberId) {
 // Claim Filing Process
   await sendWhatsAppMessage(phone, payload, phoneNumberId);
 }
+
+export default FundraisinghandleIncomingMessage;
