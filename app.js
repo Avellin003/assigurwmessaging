@@ -687,7 +687,7 @@ const handlePaymentTermsReply = async (
       const payloadName1 = {
         type: "text",
         text: {
-          body: `*Twakiriye ubwishyu!*\nTwakiriye ubwishyu! Ubu turi gukora ibikenewe ngo twohereze icyemezo cy’Ubwishingizi. Mutegereze gato.`
+          body: `*Twakiriye ubwishyu!*\nTwakiriye ubwishyu! Ubu turi gukora ibikenewe ngo twohereze icyemezo cy'Ubwishingizi. Mutegereze gato.`
         }
       };
 
@@ -1044,7 +1044,8 @@ const handleNumberOfPeople = async (message, phone, phoneNumberId) => {
 };
 
 
-// handling Text Messages
+
+// Updated handleTextMessages function
 const handleTextMessages = async (message, phone, phoneNumberId) => {
   let userContext = userContexts.get(phone) || {};
 
@@ -1088,106 +1089,12 @@ const handleTextMessages = async (message, phone, phoneNumberId) => {
       userContexts.set(phone, userContext);
     }
   } else {
-    // Handle different stages
-    switch (userContext.stage) {
-      case "WELCOME":
-        if (messageText === "existing user") {
-          await sendWelcomeMessageExistingUser(phone, phoneNumberId, "John");
-        } else if (messageText === "new user") {
-          await sendWelcomeMessageNewUser(phone, phoneNumberId);
-        }
-        break;
-
-      case "VIEW_MY_BOXES":
-        if (messageText === "view my boxes") {
-          await viewUserBoxes(phone, phoneNumberId);
-        }
-        break;
-
-      case "VIEW_PUBLIC_BOXES":
-        if (messageText === "view public boxes") {
-          await viewPublicBoxes(phone, phoneNumberId);
-        }
-        break;
-
-      case "BOX_SUMMARY":
-        if (messageText === "box summary") {
-          await viewBoxSummary(phone, phoneNumberId, "Inkunga ya Kigali FC ⚽");
-        }
-        break;
-
-      case "REQUEST_MOMO_NUMBER":
-        if (messageText === "request momo number") {
-          await requestMoMoNumber(phone, phoneNumberId);
-        }
-        break;
-
-      case "REQUEST_DONATION_AMOUNT":
-        if (messageText === "request donation amount") {
-          await requestDonationAmount(phone, phoneNumberId);
-        }
-        break;
-
-      case "CONFIRM_DONATION":
-        if (messageText === "confirm donation") {
-          await confirmDonation(phone, phoneNumberId, "Inkunga ya Kigali FC ⚽", 5000, "078xxxxxxx");
-        }
-        break;
-
-      case "NOTIFY_PAYMENT_IN_PROGRESS":
-        if (messageText === "notify payment in progress") {
-          await notifyPaymentInProgress(phone, phoneNumberId, 5000, "078xxxxxxx");
-        }
-        break;
-
-      case "CONFIRM_SUCCESSFUL_PAYMENT":
-        if (messageText === "confirm successful payment") {
-          await confirmSuccessfulPayment(phone, phoneNumberId, "John", 5000, "Inkunga ya Kigali FC ⚽");
-        }
-        break;
-
-      case "NOTIFY_FAILED_PAYMENT":
-        if (messageText === "notify failed payment") {
-          await notifyFailedPayment(phone, phoneNumberId);
-        }
-        break;
-
-      case "NOTIFY_ADMIN_NEW_DONATION":
-        if (messageText === "notify admin new donation") {
-          await notifyAdminNewDonation(phone, phoneNumberId, "John Doe", 5000, "Inkunga ya Kigali FC ⚽");
-        }
-        break;
-
-      case "SHARE_BOX_LINK":
-        if (messageText === "share box link") {
-          await shareBoxLink(phone, phoneNumberId, "Inkunga ya Kigali FC ⚽", "https://ikimina.web.app/basket/kigali-fc");
-        }
-        break;
-
-      case "VIEW_BOX_MEMBERS":
-        if (messageText === "view box members") {
-          await viewBoxMembers(phone, phoneNumberId);
-        }
-        break;
-
-      case "CREATE_NEW_BOX":
-        if (messageText === "create new box") {
-          await createNewBox(phone, phoneNumberId);
-        }
-        break;
-
-      case "CONFIRM_ID_AND_CREATE_BOX":
-        if (messageText === "confirm id and create box") {
-          await confirmIDAndCreateBox(phone, phoneNumberId, "Ikimina cy'Urubyiruko rwa Nyamirambo");
-        }
-        break;
-
-      default:
-        console.log(`Received unrecognized text message: ${messageText}`);
-        break;
-    }
+    console.log(`Received unrecognized text message: ${messageText}`);
   }
 };
+
+
+
 
 
 const handleInteractiveMessages = async (message, phone, phoneNumberId) => {
@@ -1979,7 +1886,7 @@ await docRef.update({
               {
                 type: "text",
                 text: {
-                  body: `*Suzuma neza*\nBisa n’aho icyangombwa wohereje kitari mu buryo bukwiriye. Reba neza niba ari cyo ubundi wongere wohereze.`,
+                  body: `*Suzuma neza*\nBisa n'aho icyangombwa wohereje kitari mu buryo bukwiriye. Reba neza niba ari cyo ubundi wongere wohereze.`,
                 },
               },
               phoneNumberId
@@ -3280,7 +3187,6 @@ async function sendLifutiWelcomeMessage(phone, phoneNumberId) {
 
   await sendWhatsAppMessage(phone, payload, phoneNumberId);
 }
-
 
 // Step 5: Custom pickup time selection (for "Later" option)
 async function sendCustomPickupTimeMessage(phone, phoneNumberId) {
@@ -4981,7 +4887,7 @@ async function sendWelcomeMessageRW(phone, phoneNumberId) {
         text: "Ikaze!"
       },
       body: {
-        text: "Murakaza neza! Fata ubwishingizi bw'imodoka yawe mu buryo bwihuse kandi bw’ikoranabuhanga. Kanda ‘Tangira’ maze dutangire urugendo rwacu hamwe!"
+        text: "Murakaza neza! Fata ubwishingizi bw'imodoka yawe mu buryo bwihuse kandi bw'ikoranabuhanga. Kanda 'Tangira' maze dutangire urugendo rwacu hamwe!"
       },
       footer: {
         text: "Hitamo igikorwa cyo gukomeza"
@@ -6264,7 +6170,7 @@ app.post("/api/send-proforma", async (req, res) => {
         interactive: {
           type: "button",
           body: {
-            text: `Hola! Twohereje proforma y'ubwishingizi hamwe n’amategeko n’amabwiriza agenga ubwishingizi. Soma neza hanyuma ukande kuri *Emeza & Wishyure*`,
+            text: `Hola! Twohereje proforma y'ubwishingizi hamwe n'amategeko n'amabwiriza agenga ubwishingizi. Soma neza hanyuma ukande kuri *Emeza & Wishyure*`,
           },
           action: {
             buttons: [{
@@ -8373,247 +8279,6 @@ async function createWhatsappOrderNew(phone) {
     console.error("Error creating order in Firestore:", error.message);
   }
 }
-
-//welcome message fundraising
-
-// Function to handle the initial message for existing users
-async function sendWelcomeMessageExistingUser(phone, phoneNumberId, userName) {
-  const payload = {
-    type: "interactive",
-    interactive: {
-      type: "button",
-      body: {
-        text: `👋 Murakaza neza, ${userName}!\n\nUrifuza gukora iki uyu munsi?`
-      },
-      action: {
-        buttons: [
-          { type: "reply", reply: { id: "view_my_boxes", title: "📥 Reba Amasanduku yanjye" } },
-          { type: "reply", reply: { id: "view_public_boxes", title: "🌍 Reba Amasanduku rusange" } }
-        ]
-      }
-    }
-  };
-  await sendWhatsAppMessage(phone, payload, phoneNumberId);
-}
-
-// Function to handle the initial message for new users
-async function sendWelcomeMessageNewUser(phone, phoneNumberId) {
-  const payload = {
-    type: "interactive",
-    interactive: {
-      type: "button",
-      body: {
-        text: "👋 Murakaza neza muri Kominote yo kwizigama no gutanga inkunga!\n\nReka dutangire:"
-      },
-      action: {
-        buttons: [
-          { type: "reply", reply: { id: "create_new_box", title: "Kora Agasanduku gashya 🧺" } },
-          { type: "reply", reply: { id: "view_public_boxes", title: "Reba Amasanduku rusange 🌍" } }
-        ]
-      }
-    }
-  };
-  await sendWhatsAppMessage(phone, payload, phoneNumberId);
-}
-
-// Function to handle viewing user's boxes
-async function viewUserBoxes(phone, phoneNumberId) {
-  const payload = {
-    type: "text",
-    text: {
-      body: `📥 **Amasanduku yawe arimo gukora:**\n\n1️⃣ Inkunga ya Kigali FC (⚽ Siporo)\n2️⃣ Ikimina cy’Abacuruzi ba Remera (💰 Wizigama buri kwezi)\n3️⃣ Umuganda w’isuku rusange (🌿 Ubukangurambaga rimwe gusa)\n\nHitamo akasanduku wandika umubare wako cyangwa izina:`
-    }
-  };
-  await sendWhatsAppMessage(phone, payload, phoneNumberId);
-}
-
-// Function to handle viewing public boxes
-async function viewPublicBoxes(phone, phoneNumberId) {
-  const payload = {
-    type: "text",
-    text: {
-      body: `🌐 **Amasanduku rusange y’inkunga n’ubwizigame:**\n\n1️⃣ Ikigega cy’Abafana ba APR FC – buri kwezi\n2️⃣ Ikigega cy’Ubuzima bw’Abaturage – rimwe gusa\n3️⃣ Inkunga y’Uburezi bw’Urubyiruko – buri cyumweru\n\nHitamo akasanduku wandika umubare wako cyangwa izina:`
-    }
-  };
-  await sendWhatsAppMessage(phone, payload, phoneNumberId);
-}
-
-// Function to handle box summary
-async function viewBoxSummary(phone, phoneNumberId, boxName) {
-  const payload = {
-    type: "interactive",
-    interactive: {
-      type: "button",
-      body: {
-        text: `🧺 **${boxName}**\n\n- Inshuro: Buri kwezi\n- Umusanzu usabwa: 3000 RWF\n- Amafaranga amaze gukusanywa: 650,000 RWF\n- Abatanze: Abantu 220\n\nHitamo igikurikiraho:`
-      },
-      action: {
-        buttons: [
-          { type: "reply", reply: { id: "donate", title: "Tanga umusanzu 💳" } },
-          { type: "reply", reply: { id: "share", title: "Sangiza inshuti 🔗" } },
-          { type: "reply", reply: { id: "view_members", title: "Reba abagize akasanduku 👥" } },
-          { type: "reply", reply: { id: "home", title: "Ahabanza 🔙" } }
-        ]
-      }
-    }
-  };
-  await sendWhatsAppMessage(phone, payload, phoneNumberId);
-}
-
-// Function to request MoMo number
-async function requestMoMoNumber(phone, phoneNumberId) {
-  const payload = {
-    type: "text",
-    text: {
-      body: "📲 Injiza nimero yawe ya MoMo wishyuriraho:"
-    }
-  };
-  await sendWhatsAppMessage(phone, payload, phoneNumberId);
-}
-
-// Function to request donation amount
-async function requestDonationAmount(phone, phoneNumberId) {
-  const payload = {
-    type: "text",
-    text: {
-      body: "💰 Injiza amafaranga ushaka gutanga (urugero: 3000 RWF):"
-    }
-  };
-  await sendWhatsAppMessage(phone, payload, phoneNumberId);
-}
-
-// Function to confirm donation before sending
-async function confirmDonation(phone, phoneNumberId, boxName, amount, momoNumber) {
-  const payload = {
-    type: "interactive",
-    interactive: {
-      type: "button",
-      body: {
-        text: `📝 Emeza umusanzu wawe:\n\nAgasanduku: ${boxName}\nAmafaranga: ${amount} RWF\nNomero ya MoMo: ${momoNumber}\n\nEmeza kugira ngo ukomeze:`
-      },
-      action: {
-        buttons: [
-          { type: "reply", reply: { id: "confirm", title: "Emeza ✅" } },
-          { type: "reply", reply: { id: "change_amount", title: "Hindura amafaranga ✏️" } },
-          { type: "reply", reply: { id: "cancel", title: "Hagarika ❌" } }
-        ]
-      }
-    }
-  };
-  await sendWhatsAppMessage(phone, payload, phoneNumberId);
-}
-
-// Function to notify payment in progress
-async function notifyPaymentInProgress(phone, phoneNumberId, amount, momoNumber) {
-  const payload = {
-    type: "text",
-    text: {
-      body: `⌛ Ubwishyu bwawe bwa ${amount} RWF kuri MoMo ${momoNumber} buri gukorwa...\n\nUrahita uhabwa ubutumwa bwo kwemeza.`
-    }
-  };
-  await sendWhatsAppMessage(phone, payload, phoneNumberId);
-}
-
-// Function to confirm successful payment
-async function confirmSuccessfulPayment(phone, phoneNumberId, userName, amount, boxName) {
-  const payload = {
-    type: "interactive",
-    interactive: {
-      type: "button",
-      body: {
-        text: `✅ **Murakoze cyane, ${userName}!**\n\nUmusanzu wawe wa **${amount} RWF** mu **${boxName}** wagenze neza.\n\n🎉 **Tubashimiye inkunga yanyu!**`
-      },
-      action: {
-        buttons: [
-          { type: "reply", reply: { id: "share", title: "Sangiza abandi 🔗" } },
-          { type: "reply", reply: { id: "view_box_info", title: "Reba amakuru y’agasanduku 📊" } },
-          { type: "reply", reply: { id: "home", title: "Ahabanza 🔙" } }
-        ]
-      }
-    }
-  };
-  await sendWhatsAppMessage(phone, payload, phoneNumberId);
-}
-
-// Function to notify failed payment
-async function notifyFailedPayment(phone, phoneNumberId) {
-  const payload = {
-    type: "interactive",
-    interactive: {
-      type: "button",
-      body: {
-        text: "❌ Mbabarira, ubwishyu ntibwageze neza. Reba niba ufite amafaranga ahagije kuri MoMo hanyuma wongere ugerageze."
-      },
-      action: {
-        buttons: [
-          { type: "reply", reply: { id: "retry", title: "Ongera kugerageza 🔄" } },
-          { type: "reply", reply: { id: "change_momo", title: "Hindura MoMo 📲" } },
-          { type: "reply", reply: { id: "cancel", title: "Hagarika 🔙" } }
-        ]
-      }
-    }
-  };
-  await sendWhatsAppMessage(phone, payload, phoneNumberId);
-}
-
-// Function to notify admin of new donation
-async function notifyAdminNewDonation(phone, phoneNumberId, userName, amount, boxName) {
-  const payload = {
-    type: "text",
-    text: {
-      body: `🔔 **Umusanzu mushya wakiriwe!**\n\nAgasanduku: ${boxName}\nUwatanzemo: ${userName} (${phone})\nAmafaranga: ${amount} RWF\nItariki: ${new Date().toLocaleString()}\n\nIgiteranyo mu gasanduku: 655,000 RWF`
-    }
-  };
-  await sendWhatsAppMessage(phone, payload, phoneNumberId);
-}
-
-// Function to share box link
-async function shareBoxLink(phone, phoneNumberId, boxName, boxLink) {
-  const payload = {
-    type: "text",
-    text: {
-      body: `🔗 Sangiza abandi aka gasanduku "${boxName}":\n\n👉 ${boxLink}`
-    }
-  };
-  await sendWhatsAppMessage(phone, payload, phoneNumberId);
-}
-
-// Function to view box members
-async function viewBoxMembers(phone, phoneNumberId) {
-  const payload = {
-    type: "text",
-    text: {
-      body: `👥 **Abagize agasanduku:**\n\n1. John Doe – 5000 RWF\n2. Alice Mukantwari – 3000 RWF\n3. Eric Nsabimana – 10000 RWF\n...\n\n[Ahakurikira ▶️] [Shakisha umuntu 🔍] [Ahabanza 🔙]`
-    }
-  };
-  await sendWhatsAppMessage(phone, payload, phoneNumberId);
-}
-
-// Function to create a new box
-async function createNewBox(phone, phoneNumberId) {
-  const payload = {
-    type: "text",
-    text: {
-      body: "📝 **Kurema agasanduku gashya**\n\nAndika nimero y’Indangamuntu yawe kugira ngo twemeze umwirondoro wawe:"
-    }
-  };
-  await sendWhatsAppMessage(phone, payload, phoneNumberId);
-}
-
-// Function to confirm ID and create box
-async function confirmIDAndCreateBox(phone, phoneNumberId, boxName) {
-  const payload = {
-    type: "text",
-    text: {
-      body: `✅ Indangamuntu yemejwe. Injiza izina ry’agasanduku:\n\n🎉 Agasanduku kawe "${boxName}" karemwe neza!\n\nSangiza abandi ukoresheje iyi link cyangwa QR Code:\n🔗 https://ikimina.web.app/join?basket=abc123`
-    }
-  };
-  await sendWhatsAppMessage(phone, payload, phoneNumberId);
-}
-
-// Add these functions to your existing message handling logic
-// Example: Call sendWelcomeMessageExistingUser when an existing user starts a conversation
-
 
 
 
