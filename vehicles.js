@@ -1,4 +1,4 @@
-// vehicle.js
+// vehicles.js
 export class VehicleModel {
   constructor(
     tin,
