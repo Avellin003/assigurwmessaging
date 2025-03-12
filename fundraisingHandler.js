@@ -8,7 +8,7 @@ import {
   requestContributionAmount,
   sendPaymentConfirmation,
 //   requestNationalId,
-  verifyNationalId,
+//   verifyNationalId,
 //   requestBasketName,
 //   requestBasketCategory,
 //   shareBasketLink,
