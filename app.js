@@ -1,4 +1,3 @@
-// APP
 import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
@@ -15,6 +14,7 @@ import { Timestamp } from 'firebase-admin/firestore';
 
 import { CalculatePricing } from './pricing.js';
 import { VehicleModel } from './vehicles.js';
+import WhatsAppService from "./services/FundraisingWhatsAppService.js";
 
 //import { extractImageData } from './imageExtraction.js';
 const bucketName = "assigurw.appspot.com";
@@ -7153,6 +7153,10 @@ const initializeDefaultCases = () => {
   // New case: send default catalog (using the keyword "catalog")
   textMessageCases.set('catalog', async (userContext, phone, phoneNumberId) => {
     await sendClassSelectionMessage(phone, phoneNumberId);
+  });
+
+  textMessageCases.set('hi', async (userContext, phone, phoneNumberId) => {
+    await WhatsAppService.handleNewuser(phone, phoneNumberId);
   });
 
   
