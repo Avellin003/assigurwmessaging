@@ -7154,10 +7154,22 @@ const initializeDefaultCases = () => {
     await sendClassSelectionMessage(phone, phoneNumberId);
   });
 
+  // to be changed when I include the firebase
   textMessageCases.set('mwiriwe!', async (userContext, phone, phoneNumberId) => {
       await FundraisinghandleIncomingMessage(phone, phoneNumberId);
     });
+  
+  textMessageCases.set('ndi mushya', async(userContext, phone, phoneNumberId) =>{
+    await viewofisanduku(phone, phoneNumberId);
+  });
 
+  textMessageCases.set('inshamake y\'agasanduku', async(userContext, phone, phoneNumberId) =>{
+    await viewofinshamakeyagasanduku(phone, phoneNumberId);
+  });
+
+  textMessageCases.set('udusanduku', async(userContext, phone, phoneNumberId) =>{
+    await viewofamasandukurusange(phone, phoneNumberId);
+  });
   
   // Add your existing static cases
   textMessageCases.set('menu1', {
@@ -7376,6 +7388,103 @@ async function FundraisinghandleIncomingMessage(phone, phoneNumberId) {
     }
   };
   
+  await sendWhatsAppMessage(phone, payload, phoneNumberId);
+}
+
+async function viewofisanduku(phone, phoneNumberId) {
+  let userContext = userContexts.get(phone) || {};
+  userContext.stage = "VIEW_OF_ISANDUKU";
+  userContexts.set(phone, userContext);
+  const payload = {
+    type: "interactive",
+    interactive: {
+      type: "list",
+      header: { 
+        type: "text", 
+        text: "🧺 Amasanduku yanjye" 
+      },
+      body: {
+        text: "Hitamo agasanduku: "
+      },
+      action: {
+        button: "Hitamo",
+        sections: [
+          {
+            title: "Amasanduku",
+            rows: [
+              { id: "kigali_fc", title: "1️⃣ Inkunga ya Kigali FC (⚽ Siporo)" },
+              { id: "remera_business", title: "2️⃣ Ikimina cy'Abacuruzi ba Remera (💰 Wizigama buri kwezi)" },
+              { id: "umuganda", title: "3️⃣ Umuganda w'isuku rusange (🌿 Ubukangurambaga rimwe gusa)" }
+            ]
+          }
+        ]
+      }
+    }
+  };
+
+  await sendWhatsAppMessage(phone, payload, phoneNumberId);
+}
+
+async function viewofamasandukurusange(phone, phoneNumberId) {
+  let userContext = userContexts.get(phone) || {};
+  userContext.stage = "VIEW_OF_AMASANDUKU";
+  userContexts.set(phone, userContext);
+  const payload = {
+    type: "interactive",
+    interactive: {
+      type: "list",
+      header: { 
+        type: "text", 
+        text: "🧺 Amasanduku rusange y'inkunga n'ubwizigame" 
+      },
+      body: {
+        text: "Hitamo agasanduku: "
+      },
+      action: {
+        button: "Hitamo",
+        sections: [
+          {
+            title: "Amasanduku",
+            rows: [
+              { id: "kigali_fc", title: "1️⃣ Ikigega cy'Abafana ba APR FC - buri kwezi"},
+              { id: "remera_business", title: "2️⃣ Ikigega cy'ubuzima bw'Abaturage - rimwe gusa" },
+              { id: "umuganda", title: "3️⃣ Inkunga y'Uburezi bw'Urubyiruko - buri cyumweru" }
+            ]
+          }
+        ]
+      }
+    }
+  };
+
+  await sendWhatsAppMessage(phone, payload, phoneNumberId);
+}
+
+async function viewofinshamakeyagasanduku(phone, phoneNumberId) {
+  let userContext = userContexts.get(phone) || {};
+  userContext.stage = "VIEW_OF_INCAMAKE_AGASANDUKU";
+  userContexts.set(phone, userContext);
+  const payload = {
+    type: "interactive",
+    interactive: {
+      type: "list",
+      header: { 
+        type: "text", 
+        text: "Inkunga ya Kigali FC ⚽" 
+      },
+      body: {
+        text: "Hitamo agasanduku:\n\n- Inshuro: Buri kwezi\n- Umusanzu usabwa: 3000 RWF\n- Amafaranga amaze gukusanywa: 650,000 RWF\n- Abatanze: Abantu 220"
+      },
+      action: {
+        buttons: [
+          { type: "reply", reply: { id: "PERSONAL_BOX", title: "💳 Tanga umusanzu" } },
+          { type: "reply", reply: { id: "PUBLIC_BOX", title: "🔗 Sangiza inshuti" } },
+          { type: "reply", reply: { id: "PUBLIC_BOX", title: "🧑‍🤝‍🧑 Reba abagize agasanduku" } },
+          { type: "reply", reply: { id: "PUBLIC_BOX", title: "🔙 Ahabanza" } }
+        ]
+      }
+    }
+  };
+
   await sendWhatsAppMessage(phone, payload, phoneNumberId);
 }
 
