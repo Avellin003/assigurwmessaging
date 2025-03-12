@@ -1,3 +1,37 @@
+async function sendWhatsAppMessage(phone, messagePayload, phoneNumberId) {
+  try {
+    const url = `https://graph.facebook.com/${VERSION}/${phoneNumberId}/messages`;
+
+    const response = await axios({
+      method: "POST",
+      url: url,
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      data: {
+        messaging_product: "whatsapp",
+        recipient_type: "individual",
+        to: formatPhoneNumber(phone),
+        ...messagePayload,
+      },
+    });
+
+    console.log(
+      `Message sent successfully from ${phoneNumberId}:`,
+      response.data
+    );
+    return response.data;
+  } catch (error) {
+    console.error(
+      `WhatsApp message sending error from ${phoneNumberId}:`,
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+}
+
+
 // async function handleNewUser() {
 //   return {
 //     message: "👋 Murakaza neza muri Kominote yo kwizigama no gutanga inkunga!\n\nReka dutangire:",
