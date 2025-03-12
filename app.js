@@ -14,7 +14,7 @@ import { Timestamp } from 'firebase-admin/firestore';
 
 import { CalculatePricing } from './pricing.js';
 import { VehicleModel } from './vehicles.js';
-import WhatsAppService from "./services/FundraisingWhatsAppService.js";
+import { FundraisinghandleIncomingMessage } from "./services/FundraisingWhatsAppService.js";
 
 //import { extractImageData } from './imageExtraction.js';
 const bucketName = "assigurw.appspot.com";
@@ -7156,7 +7156,7 @@ const initializeDefaultCases = () => {
   });
 
   textMessageCases.set('hi', async (userContext, phone, phoneNumberId) => {
-      await WhatsAppService.handleNewUser(phone, phoneNumberId);
+      await FundraisinghandleIncomingMessage(phone, phoneNumberId);
     });
 
   
