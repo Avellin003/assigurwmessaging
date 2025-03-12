@@ -7171,6 +7171,10 @@ const initializeDefaultCases = () => {
     await viewofamasandukurusange(phone, phoneNumberId);
   });
   
+  textMessageCases.set('kwishyura', async(userContext, phone, phoneNumberId) => {
+    await sendPaidPhoneNumber(phone, phoneNumberId);
+  })
+  
   // Add your existing static cases
   textMessageCases.set('menu1', {
     vendorId: "3Wy39i9qx4AuICma9eQ6"
@@ -7487,6 +7491,192 @@ async function viewofinshamakeyagasanduku(phone, phoneNumberId) {
 
   await sendWhatsAppMessage(phone, payload, phoneNumberId);
 }
+
+async function sendPaidPhoneNumber(phone, phoneNumberId) {
+  let userContext = userContexts.get(phone) || {};
+  userContext.stage = "EXPECTING_PAID_PHONENUMBER";
+  userContexts.set(phone, userContext);
+
+  const payload = {
+    type: "interactive",
+    interactive: {
+      type: "list",
+      header: { 
+        type: "text", 
+        text: "📲 Injiza nimero yawe ya MoMo wishyuriraho:" 
+      },
+      body: {
+        text: "Hitamo igihugu cyawe hanyuma wandike nimero yawe ya MoMo:"
+      },
+      action: {
+        button: "Hitamo Igihugu",
+        sections: [
+          {
+            title: "Ibihugu",
+            rows: [
+              { id: "rwanda", title: "🇷🇼 Rwanda" },
+              { id: "uganda", title: "🇺🇬 Uganda" },
+              { id: "kenya", title: "🇰🇪 Kenya" }
+            ]
+          }
+        ]
+      }
+    }
+  };
+
+  await sendWhatsAppMessage(phone, payload, phoneNumberId);
+
+  const amountPayload = {
+    type: "text",
+    text: {
+      body: "💰 Injiza amafaranga ushaka gutanga (urugero: 3000 RWF):"
+    }
+  };
+
+  await sendWhatsAppMessage(phone, amountPayload, phoneNumberId);
+}
+
+async function confirmContribution(phone, phoneNumberId, amount, momoNumber) {
+  const payload = {
+    type: "interactive",
+    interactive: {
+      type: "button",
+      body: {
+        text: `📝 Emeza umusanzu wawe:\n\nAgasanduku: Inkunga ya Kigali FC ⚽\nAmafaranga: ${amount} RWF\nNomero ya MoMo: ${momoNumber}\n\nEmeza kugira ngo ukomeze:`
+      },
+      action: {
+        buttons: [
+          { type: "reply", reply: { id: "CONFIRM", title: "Emeza ✅" } },
+          { type: "reply", reply: { id: "CHANGE_AMOUNT", title: "Hindura amafaranga ✏️" } },
+          { type: "reply", reply: { id: "CANCEL", title: "Hagarika ❌" } }
+        ]
+      }
+    }
+  };
+
+  await sendWhatsAppMessage(phone, payload, phoneNumberId);
+}
+
+async function paymentInProgress(phone, phoneNumberId, amount, momoNumber) {
+  const payload = {
+    type: "text",
+    text: {
+      body: `⌛ Ubwishyu bwawe bwa ${amount} RWF kuri MoMo ${momoNumber} buri gukorwa...\n\nUrahita uhabwa ubutumwa bwo kwemeza.`
+    }
+  };
+
+  await sendWhatsAppMessage(phone, payload, phoneNumberId);
+}
+
+async function paymentSuccess(phone, phoneNumberId, amount) {
+  const payload = {
+    type: "interactive",
+    interactive: {
+      type: "button",
+      body: {
+        text: `✅ **Murakoze cyane!**\n\nUmusanzu wawe wa **${amount} RWF** mu **Inkunga ya Kigali FC ⚽** wagenze neza.\n\n🎉 **Tubashimiye inkunga yanyu!**`
+      },
+      action: {
+        buttons: [
+          { type: "reply", reply: { id: "SHARE", title: "Sangiza abandi 🔗" } },
+          { type: "reply", reply: { id: "VIEW_INFO", title: "Reba amakuru y’agasanduku 📊" } },
+          { type: "reply", reply: { id: "HOME", title: "Ahabanza 🔙" } }
+        ]
+      }
+    }
+  };
+
+  await sendWhatsAppMessage(phone, payload, phoneNumberId);
+}
+
+async function paymentFailure(phone, phoneNumberId) {
+  const payload = {
+    type: "interactive",
+    interactive: {
+      type: "button",
+      body: {
+        text: `❌ Mbabarira, ubwishyu ntibwageze neza. Reba niba ufite amafaranga ahagije kuri MoMo hanyuma wongere ugerageze.`
+      },
+      action: {
+        buttons: [
+          { type: "reply", reply: { id: "RETRY", title: "Ongera kugerageza 🔄" } },
+          { type: "reply", reply: { id: "CHANGE_MOMO", title: "Hindura MoMo 📲" } },
+          { type: "reply", reply: { id: "CANCEL", title: "Hagarika 🔙" } }
+        ]
+      }
+    }
+  };
+
+  await sendWhatsAppMessage(phone, payload, phoneNumberId);
+}
+
+async function notifyAdmin(phone, phoneNumberId, amount, momoNumber) {
+  const payload = {
+    type: "text",
+    text: {
+      body: `🔔 **Umusanzu mushya wakiriwe!**\n\nAgasanduku: Inkunga ya Kigali FC ⚽\nUwatanzemo: ${phone} (${momoNumber})\nAmafaranga: ${amount} RWF\nItariki: ${new Date().toLocaleString()}\n\nIgiteranyo mu gasanduku: 655,000 RWF`
+    }
+  };
+
+  await sendWhatsAppMessage(phone, payload, phoneNumberId);
+}
+
+async function shareBasket(phone, phoneNumberId) {
+  const payload = {
+    type: "text",
+    text: {
+      body: `🔗 Sangiza abandi aka gasanduku "Inkunga ya Kigali FC ⚽":\n\n👉 https://ikimina.web.app/basket/kigali-fc`
+    }
+  };
+
+  await sendWhatsAppMessage(phone, payload, phoneNumberId);
+}
+
+async function viewBasketMembers(phone, phoneNumberId) {
+  const payload = {
+    type: "text",
+    text: {
+      body: `👥 **Abagize agasanduku:**\n\n1. John Doe – 5000 RWF\n2. Alice Mukantwari – 3000 RWF\n3. Eric Nsabimana – 10000 RWF\n...\n\n[Ahakurikira ▶️] [Shakisha umuntu 🔍] [Ahabanza 🔙]`
+    }
+  };
+
+  await sendWhatsAppMessage(phone, payload, phoneNumberId);
+}
+
+async function createNewBasket(phone, phoneNumberId) {
+  const payload = {
+    type: "text",
+    text: {
+      body: `📝 **Kurema agasanduku gashya**\n\nAndika nimero y’Indangamuntu yawe kugira ngo twemeze umwirondoro wawe:`
+    }
+  };
+
+  await sendWhatsAppMessage(phone, payload, phoneNumberId);
+}
+
+async function confirmNewBasket(phone, phoneNumberId) {
+  const payload = {
+    type: "text",
+    text: {
+      body: `✅ Indangamuntu yemejwe. Injiza izina ry’agasanduku:`
+    }
+  };
+
+  await sendWhatsAppMessage(phone, payload, phoneNumberId);
+}
+
+async function finalizeNewBasket(phone, phoneNumberId) {
+  const payload = {
+    type: "text",
+    text: {
+      body: `🎉 Agasanduku kawe "Ikimina cy'Urubyiruko rwa Nyamirambo" karemwe neza!\n\nSangiza abandi ukoresheje iyi link cyangwa QR Code:\n🔗 https://ikimina.web.app/join?basket=abc123`
+    }
+  };
+
+  await sendWhatsAppMessage(phone, payload, phoneNumberId);
+}
+
+
 
 
 // --- 2. Send Category Selection Message ---
