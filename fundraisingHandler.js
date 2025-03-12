@@ -7,12 +7,12 @@ import {
   requestMoMoNumber,
   requestContributionAmount,
   sendPaymentConfirmation,
-  requestNationalId,
+//   requestNationalId,
   verifyNationalId,
-  requestBasketName,
+//   requestBasketName,
 //   requestBasketCategory,
-  shareBasketLink,
-  sendBasketMembers
+//   shareBasketLink,
+//   sendBasketMembers
 } from './fundraisingMessages.js';
 
 // User context management
@@ -59,23 +59,23 @@ async function handleFundraisingFlow(message, phone, phoneNumberId) {
           userContext.stage = 'VIEWING_PUBLIC';
           break;
           
-        case 'create_basket':
-          await requestNationalId(phone, phoneNumberId);
-          userContext.stage = 'AWAITING_ID';
-          break;
+        // case 'create_basket':
+        //   await requestNationalId(phone, phoneNumberId);
+        //   userContext.stage = 'AWAITING_ID';
+        //   break;
           
         case 'contribute':
           await requestMoMoNumber(phone, phoneNumberId);
           userContext.stage = 'AWAITING_MOMO';
           break;
           
-        case 'share_basket':
-          await shareBasketLink(phone, phoneNumberId, userContext.currentBasket);
-          break;
+        // case 'share_basket':
+        //   await shareBasketLink(phone, phoneNumberId, userContext.currentBasket);
+        //   break;
           
-        case 'view_members':
-          await sendBasketMembers(phone, phoneNumberId, userContext.currentBasket);
-          break;
+        // case 'view_members':
+        //   await sendBasketMembers(phone, phoneNumberId, userContext.currentBasket);
+        //   break;
           
         case 'confirm_payment':
           await processPayment(phone, phoneNumberId, userContext);
@@ -85,12 +85,12 @@ async function handleFundraisingFlow(message, phone, phoneNumberId) {
     } else if (message.text) {
       // Handle text responses based on the current stage
       switch (userContext.stage) {
-        case 'AWAITING_ID':
-          const nationalId = message.text.body;
-          await verifyNationalId(nationalId);
-          await requestBasketName(phone, phoneNumberId);
-          userContext.stage = 'AWAITING_BASKET_NAME';
-          break;
+        // case 'AWAITING_ID':
+        //   const nationalId = message.text.body;
+        //   await verifyNationalId(nationalId);
+        //   await requestBasketName(phone, phoneNumberId);
+        //   userContext.stage = 'AWAITING_BASKET_NAME';
+        //   break;
           
         // case 'AWAITING_BASKET_NAME':
         //   userContext.basketName = message.text.body;
