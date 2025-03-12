@@ -7356,7 +7356,7 @@ async function FundraisinghandleIncomingMessage(phone, phoneNumberId) {
   const payload = {
     type: "interactive",
     interactive: {
-      type: "button",  // Changed from "text" to "button"
+      type: "button",
       header: { 
         type: "text", 
         text: "👋Murakaza neza, Regis!" 
@@ -7369,8 +7369,8 @@ async function FundraisinghandleIncomingMessage(phone, phoneNumberId) {
       },
       action: {
         buttons: [
-          { type: "reply", reply: { id: "PERSONAL_BOX", title: "📥 Reba Amasanduku yanjye" } },
-          { type: "reply", reply: { id: "PUBLIC_BOX", title: "🌍 Reba Amasanduku rusange" } }
+          { type: "reply", reply: { id: "PERSONAL_BOX", title: "📥 Amasanduku yanjye" } },
+          { type: "reply", reply: { id: "PUBLIC_BOX", title: "🌍 Amasanduku rusange" } }
         ]
       }
     }
