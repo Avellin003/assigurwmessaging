@@ -14,7 +14,7 @@ import { Timestamp } from 'firebase-admin/firestore';
 
 
 import { CalculatePricing } from './pricing.js';
-import { VehicleModel } from './vehicle.js';
+import { VehicleModel } from './vehicles.js';
 
 //import { extractImageData } from './imageExtraction.js';
 const bucketName = "assigurw.appspot.com";
