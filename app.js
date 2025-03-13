@@ -60,6 +60,8 @@ const VERSION = "v22.0";
 
 // Global in-memory store for user contexts
 const userContexts = new Map();
+
+
 // Function to dynamically add new cases to handleTextMessages
 const textMessageCases = new Map();
 
@@ -7445,7 +7447,7 @@ async function viewofamasandukurusange(phone, phoneNumberId) {
         text: "Hitamo agasanduku: "
       },
       action: {
-        button: "Hitamo",
+        button: { type: "text", text: "Hitamo" },
         sections: [
           {
             title: "Amasanduku",
