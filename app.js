@@ -7465,9 +7465,9 @@ async function viewofamasandukurusange(phone, phoneNumberId) {
   await sendWhatsAppMessage(phone, payload, phoneNumberId);
 }
 
-async function viewofinshamakeyagasanduku(phone, phoneNumberId) {
+async function viewofamasandukurusange(phone, phoneNumberId) {
   let userContext = userContexts.get(phone) || {};
-  userContext.stage = "VIEW_OF_INCAMAKE_AGASANDUKU";
+  userContext.stage = "VIEW_OF_AMASANDUKU";
   userContexts.set(phone, userContext);
   const payload = {
     type: "interactive",
@@ -7475,17 +7475,22 @@ async function viewofinshamakeyagasanduku(phone, phoneNumberId) {
       type: "list",
       header: { 
         type: "text", 
-        text: "Inkunga ya Kigali FC ⚽" 
+        text: "🧺Konti rusange y'inkung" 
       },
       body: {
-        text: "Hitamo agasanduku:\n\n- Inshuro: Buri kwezi\n- Umusanzu usabwa: 3000 RWF\n- Amafaranga amaze gukusanywa: 650,000 RWF\n- Abatanze: Abantu 220"
+        text: "Hitamo agasanduku: "
       },
       action: {
-        buttons: [
-          { type: "reply", reply: { id: "PERSONAL_BOX", title: "💳 Tanga umusanzu" } },
-          { type: "reply", reply: { id: "PUBLIC_BOX", title: "🔗 Sangiza inshuti" } },
-          { type: "reply", reply: { id: "PUBLIC_BOX", title: "🧑‍🤝‍🧑 Reba abagize agasanduku" } },
-          { type: "reply", reply: { id: "PUBLIC_BOX", title: "🔙 Ahabanza" } }
+        button: { type: "text", text: "Hitamo" },
+        sections: [
+          {
+            title: "Amasanduku",
+            rows: [
+              { id: "kigali_fc", title: "1️⃣ Ikigega cy' APR FC"},
+              { id: "remera_business", title: "2️⃣ Ikigega cy'ubwivuzi" },
+              { id: "umuganda", title: "3️⃣ Inkunga y'Uburezi" }
+            ]
+          }
         ]
       }
     }
