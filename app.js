@@ -7163,7 +7163,7 @@ const initializeDefaultCases = () => {
     await viewofisanduku(phone, phoneNumberId);
   });
 
-  textMessageCases.set('inshamake y\'agasanduku', async(userContext, phone, phoneNumberId) =>{
+  textMessageCases.set('inshamake agasanduku', async(userContext, phone, phoneNumberId) =>{
     await viewofinshamakeyagasanduku(phone, phoneNumberId);
   });
 
@@ -7173,7 +7173,7 @@ const initializeDefaultCases = () => {
   
   textMessageCases.set('kwishyura', async(userContext, phone, phoneNumberId) => {
     await sendPaidPhoneNumberkinya(phone, phoneNumberId);
-  })
+  });
   
   // Add your existing static cases
   textMessageCases.set('menu1', {
