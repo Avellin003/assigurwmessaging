@@ -7447,7 +7447,7 @@ async function viewofamasandukurusange(phone, phoneNumberId) {
         text: "Hitamo agasanduku: "
       },
       action: {
-        button: { type: "text", text: "Hitamo" },
+        button: "Hitamo",
         sections: [
           {
             title: "Amasanduku",
