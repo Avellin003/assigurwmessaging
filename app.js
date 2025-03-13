@@ -7481,7 +7481,7 @@ async function viewofinshamakeyagasanduku(phone, phoneNumberId) {
         text: "Hitamo agasanduku:\n\n- Inshuro: Buri kwezi\n- Umusanzu usabwa: 3000 RWF\n- Amafaranga amaze gukusanywa: 650,000 RWF\n- Abatanze: Abantu 220"
       },
       action: {
-        button: { type: "text", text: "Hitamo" }, // Ensure button label is provided
+        button: "Hitamo", // Ensure button label is provided
         sections: [
           {
             title: "Amasanduku",
